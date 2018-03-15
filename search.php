@@ -19,9 +19,6 @@
            
             if(isset($_POST['submit'])){
                 $search = $_POST['search'];
-                
-                
-
                 $query = "SELECT * FROM posts WHERE post_tags LIKE '%$search%' ";
                 $search_query = mysqli_query($connection, $query);
 
