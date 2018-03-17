@@ -2,7 +2,21 @@
     <div class="form-group">
         <label for="cat_title">Edit Category</label>
 
-            <?php
+            
+
+        <?php
+            if(isset($_POST['update_category'])){
+                    $cat_title = $_POST['cat_title'];
+                    $query = "UPDATE categories SET cat_title = '{$cat_title}' WHERE cat_id = {$cat_id}";
+                    $update_query = mysqli_query($connection,$query);
+                        if(!$update_query){
+                            die("QUERY FAILED".mysqli_error($connection));
+                        }
+                    
+                }
+
+        ?>
+        <?php
 
             if(isset($_GET['edit'])){
                 $cat_id = $_GET['edit'];
@@ -19,19 +33,6 @@
                 <input value="<?php if(isset($cat_title)){echo $cat_title;} ?>"class="form-control" type="text" name="cat_title">
 
         <?php  }}  ?>
-
-        <?php
-            if(isset($_POST['update_category'])){
-                    $cat_title = $_POST['cat_title'];
-                    $query = "UPDATE categories SET cat_title = '{$cat_title}' WHERE cat_id = {$cat_id}";
-                    $update_query = mysqli_query($connection,$query);
-                        if(!$update_query){
-                            die("QUERY FAILED".mysqli_error($connection));
-                        }
-                    
-                }
-
-        ?>
 
             
         
