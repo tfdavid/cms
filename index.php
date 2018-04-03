@@ -26,7 +26,6 @@
                 $post_date = $row['post_date'];
                 $post_image = $row['post_image'];
                 $post_content = substr($row['post_content'], 0, 100);
-
             ?>
                 <h1 class="page-header">
                     Page Heading
