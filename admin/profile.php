@@ -87,7 +87,7 @@
                             </div>
 
                             <div class="form-group">
-                            
+
                                 <select name="user_role" id="">
 
                                      <?php
@@ -100,6 +100,7 @@
                                             echo "<option selected value='subscriber'>subscriber</option>";  
                                             echo "<option value='admin'>admin</option>"; 
                                         }
+                                        
                                     ?>              
                                 </select>
                             </div>
