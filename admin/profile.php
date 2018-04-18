@@ -95,8 +95,7 @@
                                             echo $user_role;
                                             echo "<option selected value='admin'>admin</option>";
                                             echo "<option value='subscriber'>subscriber</option>"; 
-                                        }
-                                        
+                                        }                                        
                                         else{    
                                             echo "<option selected value='subscriber'>subscriber</option>";  
                                             echo "<option value='admin'>admin</option>"; 
