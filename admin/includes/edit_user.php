@@ -38,15 +38,25 @@
 
         // move_uploaded_file($post_image_temp, "../images/$post_image");
 
+        $query = "SELECT randSalt FROM users";
+        $select_randsalt_query = mysqli_query($connection, $query);
+        if(!$select_randsalt_query){
+            die("QUERY FAILED ". mysqli_error($connection));
+        }
+        $row = mysqli_fetch_array($select_randsalt_query);
+        $salt = $row['randSalt'];
+        $hashed_password = crypt($user_password, $salt);
+
    
             $query = "UPDATE users SET user_firstname = '{$user_firstname}', user_lastname = '{$user_lastname}',
                     user_role = '{$user_role}', user_name = '{$user_name}',
-                    user_email = '{$user_email}', user_password = '{$user_password}' 
+                    user_email = '{$user_email}', user_password = '{$hashed_password}' 
                     WHERE user_id = {$the_user_id}";
 
             $edit_user_query = mysqli_query($connection, $query);
 
             confirmQuery($edit_user_query);
+            echo "<p class='bg-success'>User Updated <a href='users.php'>View Users?</a>";
        
     }
 ?>
