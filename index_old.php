@@ -15,11 +15,7 @@
 
             <?php
 
-            $post_query_count= "SELECT * FROM posts";
-            $find_count= mysqli_query($connection, $post_query_count);
-            $count = mysqli_num_rows($find_count);
-
-            $query = "SELECT * FROM posts WHERE post_status = 'published' ORDER BY post_id DESC";
+            $query = "SELECT * FROM posts WHERE post_status = 'published' ";
             $select_all_posts_query = mysqli_query($connection, $query);
             // if(mysqli_error())
             if (mysqli_num_rows($select_all_posts_query)==0) { echo "<h1 class='text-center'>No Content Available</h1>"; }

@@ -3,7 +3,7 @@ $(document).ready(function(){
     ClassicEditor
         .create(document.querySelector('#body'))
         .catch(error => {
-            console.error(error);
+            console.log(error);
         });
 
     $('#selectAllBoxes').click(function(e){
@@ -17,8 +17,14 @@ $(document).ready(function(){
                 this.checked = false;
             })
         }
-    })  
-      
+    });  
+    // let div_box = "<div id= 'load-screen'><div id='loading'></div></div>";
+        
+    //     $("body").prepend(div_box);
+    //     $('#load-screen').fadeOut(2000, () => {
+    //         $(this).remove();
+    //     })
+    
 
 
 });
