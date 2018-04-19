@@ -35,7 +35,7 @@
 
                     ?>
 
-                    <li>
+                    <li id="adminHref">
                         <a href="admin">Admin</a>
                     </li>
                     <li>
