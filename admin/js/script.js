@@ -30,3 +30,15 @@ $(document).ready(function(){
 });
 
 
+function loadUsersOnline(){
+    $.get("functions.php?onlineusers=result", function(data){
+        $(".usersOnline").text(data);
+    })
+}
+
+setInterval(function(){
+    loadUsersOnline();
+}, 500)
+
+
+
