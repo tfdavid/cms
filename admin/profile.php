@@ -1,8 +1,8 @@
 <?php include "includes/admin_header.php" ?>
 <?php
-    if(isset($_SESSION['username'])){
-        $username = $_SESSION['username'];
-        $query = "SELECT * FROM users WHERE user_name = '{$username}' ";
+    if(isset($_SESSION['user_id'])){
+        $user_session_id = $_SESSION['user_id'];
+        $query = "SELECT * FROM users WHERE user_id = {$user_session_id} ";
         $select_user_profile_query = mysqli_query($connection, $query);
 
         while($row = mysqli_fetch_array($select_user_profile_query)){
@@ -19,7 +19,6 @@
 ?>
 <?php
     if(isset($_POST['edit_user'])){
-             
         $user_firstname = $_POST['user_firstname'];
         $user_lastname = $_POST['user_lastname'];
         $user_role = $_POST['user_role'];
@@ -29,16 +28,23 @@
 
         $user_name = $_POST['user_name'];
         $user_email = $_POST['user_email'];
-        $user_password = $_POST['user_password'];
+        $user_password_post = $_POST['user_password'];
         // $post_date = date('d-m-y');
 
-        // move_uploaded_file($post_image_temp, "../images/$post_image");
-
+        if(!empty($user_password_post)){
+            $query_password = "SELECT user_password FROM users WHERE user_id = $the_user_id";
+            $get_user_query = mysqli_query($connection, $query_password);
+            confirmQuery($get_user_query);
+            $row = mysqli_fetch_array($get_user_query);
+            $db_user_password = $row['user_password'];
+            $user_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost'=> 12) );
+        }
+       
 
         $query = "UPDATE users SET user_firstname = '{$user_firstname}', user_lastname = '{$user_lastname}',
                 user_role = '{$user_role}', user_name = '{$user_name}',
                 user_email = '{$user_email}', user_password = '{$user_password}' 
-                WHERE user_name = '{$username}' ";
+                WHERE user_id = '{$user_session_id}' ";
 
         $edit_user_query = mysqli_query($connection, $query);
         confirmQuery($edit_user_query);
@@ -114,7 +120,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="user_password">Password</label>
-                                <input type="password" value='<?php echo $user_password ?>' class="form-control" name="user_password">
+                                <input type="password" class="form-control" name="user_password">
                             </div>
                             <div class="form-group">
                                 <input type="submit" name="edit_user" value="Update Profile" class="btn btn-primary">
