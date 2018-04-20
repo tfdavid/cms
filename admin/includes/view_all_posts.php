@@ -78,7 +78,7 @@
         ?>
 
         <?php
-            $query = "SELECT * FROM posts";
+            $query = "SELECT * FROM posts ORDER BY post_date DESC";
             $select_posts= mysqli_query($connection, $query);
 
             while($row = mysqli_fetch_assoc($select_posts)){
@@ -89,7 +89,7 @@
                 $post_status = $row['post_status'];
                 $post_image = $row['post_image'];
                 $post_tags = $row['post_tags'];
-                $post_comment_count = $row['post_comment_count'];
+                // $post_comment_count = $row['post_comment_count'];
                 $post_date = $row['post_date'];
                 
                 echo "<tr>";
@@ -107,14 +107,17 @@
                     $cat_id = $row['cat_id'];
                     $cat_title = $row['cat_title'];
                 }
+
+                $comment_count_query = "SELECT * FROM comments WHERE comment_post_id = $post_id";
+                $select_comment_number= mysqli_query($connection, $comment_count_query);
+                $comment_count = mysqli_num_rows($select_comment_number);
+
                 
-
-
                 echo "<td>$cat_title</td>";
                 echo "<td>$post_status</td>";
                 echo "<td><img width='100' src='../images/$post_image' alt='images'></td>";
                 echo "<td>$post_tags</td>";
-                echo "<td>$post_comment_count</td>";
+                echo "<td>$comment_count</td>";
                 echo "<td>$post_date</td>";
                 echo "<td><a href='../post.php?p_id={$post_id}'>View Post</a></td>";
                 echo "<td><a href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a></td>";
