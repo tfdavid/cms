@@ -19,10 +19,10 @@
                     $page = $_GET['page'];                
                 }
                 else{
-                    $page = "";
+                    $page = 1;
                 }
 
-                if($page == "" || $page==1){
+                if($page==1){
                     $page_1 = 0;
                 }
                 else{
@@ -102,7 +102,7 @@
                 <?php
                     for($i = 1; $i<=$count; $i++){
 
-                        if($i ==$page){
+                        if($i ==$page ){
                             echo "<li><a class='active_link' href = 'index.php?page={$i}'>${i}</a></li>";
                         }
                         else{
