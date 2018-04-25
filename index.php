@@ -21,7 +21,6 @@
                 else{
                     $page = 1;
                 }
-
                 if($page==1){
                     $page_1 = 0;
                 }
