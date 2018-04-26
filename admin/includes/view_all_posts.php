@@ -110,14 +110,17 @@
 
                 $comment_count_query = "SELECT * FROM comments WHERE comment_post_id = $post_id";
                 $select_comment_number= mysqli_query($connection, $comment_count_query);
+
+                $row = mysqli_fetch_array($select_comment_number);
+                $comment_id = $row['comment_id'];
                 $comment_count = mysqli_num_rows($select_comment_number);
 
-                
+
                 echo "<td>$cat_title</td>";
                 echo "<td>$post_status</td>";
                 echo "<td><img width='100' src='../images/$post_image' alt='images'></td>";
                 echo "<td>$post_tags</td>";
-                echo "<td>$comment_count</td>";
+                echo "<td><a href='post_comments.php?id=$post_id'>$comment_count</a></td>";
                 echo "<td>$post_date</td>";
                 echo "<td><a href='../post.php?p_id={$post_id}'>View Post</a></td>";
                 echo "<td><a href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a></td>";
