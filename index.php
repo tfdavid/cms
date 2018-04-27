@@ -33,7 +33,7 @@
             $post_query_count= "SELECT * FROM posts WHERE post_status = 'published' ";
             $find_count= mysqli_query($connection, $post_query_count);
             $count = mysqli_num_rows($find_count);
-            echo "count is ".$count;
+            // echo "count is ".$count;
             $count = ceil($count/$per_page);
 
             $query = "SELECT * FROM posts WHERE post_status = 'published' ORDER BY post_date DESC, post_id DESC LIMIT $page_1, $per_page";
@@ -47,7 +47,7 @@
                     // print_r($row);
                     $post_id = $row['post_id'];
                     $post_title = $row['post_title'];
-                    $post_author = $row['post_author'];
+                    $post_author = $row['post_user'];
                     $post_date = $row['post_date'];
                     $post_image = $row['post_image'];
                     $post_content = substr($row['post_content'], 0, 100);
