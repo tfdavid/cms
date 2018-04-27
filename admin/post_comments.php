@@ -30,7 +30,7 @@
         
         <tr>
             <th>Id</th>
-            <th>Author</th>
+            <th>User</th>
             <th>Comment</th>
             <th>Email</th>
             <th>Status</th>
