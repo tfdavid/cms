@@ -1,47 +1,68 @@
+<?php
+    // Import PHPMailer classes into the global namespace
+    // These must be at the top of your script, not inside a function
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+
+    //Load Composer's autoloader
+    require 'vendor/autoload.php';
+    require_once('email_config.php');
+?>
+
+
 <?php  include "includes/db.php"; ?>
 <?php  include "includes/header.php"; ?>
 
  <?php
     if(isset($_POST['submit'])){
-        $username= $_POST['username'];
-        $email= $_POST['email'];
-        $password= $_POST['password'];
+        $email = $_POST['email'];
+        $subject= wordwrap($_POST['subject']);
+        $body= $_POST['body'];
 
 
-        if(!empty($username) && !empty($email) && !empty($password)){
-            $username = mysqli_real_escape_string($connection, $username);
-            $email = mysqli_real_escape_string($connection, $email);
-            $password = mysqli_real_escape_string($connection, $password);
 
-            $password = password_hash($password, PASSWORD_BCRYPT, array('cost'=> 12) );
-            
-            // $query = "SELECT randSalt FROM users";
-            // $select_randsalt_query = mysqli_query($connection, $query);
-            // if(!$select_randsalt_query){
-            //     die("Query Failed ". mysqli_error($connection));
-            // }
-            // $row = mysqli_fetch_array($select_randsalt_query);
-            // $salt = $row['randSalt'];
-            // $password = crypt($password, $salt);
-            
-            $query = "INSERT INTO users (user_name, user_email, user_password, user_role) ";
-            $query .= "VALUES('{$username}', '{$email}', '{$password}', 'subscriber' )";
-            $register_user_query = mysqli_query($connection, $query);
-            if(!$register_user_query){
-                die("Query Failed ". mysqli_error($connection).' '. mysqli_errno($connection));
-            }
+    $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+    try {
+        //Server settings
+        // $mail->SMTPDebug = 1;                                 // Enable verbose debug output
+        $mail->isSMTP();                                      // Set mailer to use SMTP
+        $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true;                               // Enable SMTP authentication
+        $mail->Username = EMAIL_USER;                 // SMTP username
+        $mail->Password = EMAIL_PASS;                           // SMTP password
+        $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 587;                                    // TCP port to connect to
 
-            $message = "Your Registration has been submitted";
+        //Recipients
+        $mail->setFrom($email);                                      
+        $mail->addAddress(EMAIL_USER);     // Add a recipient                  
 
-        }
-        else{
-            $message = "Fields cannot be empty";
-        }
 
+        //Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = $subject;
+        $mail->Body    = $body;
+        $mail->AltBody = htmlentities($body);
+
+        $mail->send();
+        echo "
+                <div class='row successContainer'>
+                    <div class='successMsg bg-success'>Message has been sent</div>        
+                </div>
+                
+                ";
+    } catch (Exception $e) {
+        echo "<div class='row successContainer'>
+                    <div class='successMsg bg-danger'> Message could not be sent. Mailer Error: ", $mail->ErrorInfo;"</div>        
+                </div>";
+        
     }
-    else{
-        $message = "";
+
+
+
+        
     }
+    
 
 ?>
 
@@ -60,8 +81,8 @@
             <div class="col-xs-6 col-xs-offset-3">
                 <div class="form-wrap">
                 <h1>Contact</h1>
-                    <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
-                        <h6 class='text-center'><?php echo $message; ?></h6>
+                    <form role="form" action="" method="post" id="login-form" autocomplete="off">
+                        <!-- <h6 class='text-center'><?php //echo $message; ?></h6> -->
                          <div class="form-group">
                             <label for="email" class="sr-only">Email</label>
                             <input type="email" name="email" id="email" class="form-control" placeholder="somebody@example.com">
