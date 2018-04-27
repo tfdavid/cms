@@ -1,3 +1,10 @@
 .pager li > .active_link{
     background: rgba(125, 125, 135, 0.483) !important;
 }
+
+.successContainer{
+    margin: auto 0;
+}
+.successMsg{
+    text-align: center;
+}
