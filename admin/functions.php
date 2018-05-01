@@ -105,4 +105,20 @@ function recordCount($table){
     return $result;
 }
 
+function is_admin($user_id = null){
+    global $connection;
+    $query = "SELECT user_role FROM users WHERE user_id = $user_id ";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+
+    $row = mysqli_fetch_array($result);
+    if($row['user_role'] == 'admin'){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+
 ?>
