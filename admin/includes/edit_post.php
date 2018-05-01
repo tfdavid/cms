@@ -82,7 +82,13 @@
                     $cat_id = $row['cat_id'];
                     $cat_title = $row['cat_title'];
 
-                    echo "<option value='$cat_id'>{$cat_title}</option>";
+                    if($cat_id == $post_category_id){
+
+                       echo "<option selected value='$cat_id'>{$cat_title}</option>";
+                    }
+                    else{
+                        echo "<option value='$cat_id'>{$cat_title}</option>";
+                    }
                 }
 
             ?>
@@ -96,7 +102,7 @@
         <label for='users'>Users</label>
         <select name="post_user" id="">
 
-            <?php echo "<option value='{$user_name}'>{$post_user}</option>"; ?>
+            <!-- <?php //echo "<option value='{$user_name}'>{$post_user}</option>"; ?> -->
 
             <?php
                 $users_query = "SELECT * FROM users";
@@ -108,7 +114,12 @@
                     $user_id = $row['user_id'];
                     $user_name = $row['user_name'];
 
-                    echo "<option value='{$user_name}'>{$user_name}</option>";
+                    if($user_name == $post_user){
+                        echo "<option selected value='{$user_name}'>{$user_name}</option>";
+                    }
+                    else{
+                        echo "<option value='{$user_name}'>{$user_name}</option>";
+                    }
                 }
 
             ?>

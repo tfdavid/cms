@@ -77,8 +77,8 @@
                     <div class="col-lg-12">
 
                         <h1 class="page-header">
-                            Welcome to Admin
-                            <small>Author</small>
+                              Welcome to Profile
+                            <small><?php echo $_SESSION['username']; ?></small>
                         </h1>
                         <form action="" method="post" enctype="multipart/form-data">
 
