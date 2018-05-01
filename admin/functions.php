@@ -36,25 +36,19 @@ function usersOnline(){
 
         }
     }
-
 }
 usersOnline();
 
 
-
-
-
-
-
-
-
-
+// function confirms if the connection went through
 function confirmQuery($result){
      global $connection;
      if(!$result){
             die("QUERY FAILED". mysqli_error($connection));
         }
 }
+
+
 function insert_categories(){
     global $connection; 
     if(isset($_POST['submit'])){
@@ -99,6 +93,16 @@ function deleteCategories(){
         $delete_query = mysqli_query($connection,$query);
         header("Location: categories.php");
     }
+}
+
+// function to record the count for the index.php page in admin
+function recordCount($table){
+    global $connection;
+    $query = "SELECT * FROM " . $table;
+    $select_all_posts = mysqli_query($connection, $query);
+    $result = mysqli_num_rows($select_all_posts);
+    confirmQuery($result);
+    return $result;
 }
 
 ?>
