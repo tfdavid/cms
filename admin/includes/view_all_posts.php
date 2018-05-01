@@ -113,15 +113,6 @@
 
                 echo "<td>$post_user</td>";
 
-                
-
-
-
-
-
-
-
-
                 echo "<td>$post_title</td>";
 
                 $comment_count_query = "SELECT * FROM comments WHERE comment_post_id = $post_id";
