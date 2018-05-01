@@ -88,7 +88,7 @@
         ?>
 
         <?php
-            $query = "SELECT * FROM posts ORDER BY post_date DESC, post_id DESC";
+            $query = "SELECT posts.*, categories.cat_id, categories.cat_title FROM posts LEFT JOIN categories ON posts.post_category_id = categories.cat_id ORDER BY posts.post_id DESC";
             $select_posts= mysqli_query($connection, $query);
 
             while($row = mysqli_fetch_assoc($select_posts)){
@@ -102,6 +102,8 @@
                 $post_tags = $row['post_tags'];
                 // $post_comment_count = $row['post_comment_count'];
                 $post_date = $row['post_date'];
+                $cat_id = $row['cat_id'];
+                $cat_title = $row['cat_title'];
                 
                 echo "<tr>";
         ?>
@@ -109,14 +111,8 @@
         <?php
                 echo "<td>$post_id</td>";
 
+                echo "<td>$post_user</td>";
 
-
-                // if(!empty($post_author)){
-                //     echo "<td>$post_author</td>";
-                // }
-                // else{
-                    echo "<td>$post_user</td>";
-                // }
                 
 
 
@@ -128,18 +124,10 @@
 
                 echo "<td>$post_title</td>";
 
-                $query = "SELECT * FROM categories WHERE cat_id = $post_category_id";
-                $select_categories_id= mysqli_query($connection, $query);
-
-                while($row = mysqli_fetch_assoc($select_categories_id)){
-                    $cat_id = $row['cat_id'];
-                    $cat_title = $row['cat_title'];
-                }
-
                 $comment_count_query = "SELECT * FROM comments WHERE comment_post_id = $post_id";
                 $select_comment_number= mysqli_query($connection, $comment_count_query);
 
-                $row = mysqli_fetch_array($select_comment_number);
+                $row = mysqli_fetch_array($select_comment_number);               
                 $comment_id = $row['comment_id'];
                 $comment_count = mysqli_num_rows($select_comment_number);
 
