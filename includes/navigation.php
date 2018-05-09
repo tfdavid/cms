@@ -51,7 +51,6 @@
 
                             echo "<li class='$category_class'><a href='category.php?category=$cat_id'>{$cat_title}</a></li>";
                         }
-
                         if(isset($_SESSION) && $_SESSION['user_role'] == 'admin'){
                             echo "  <li id='adminHref'>
                                         <a href='admin'>Admin</a>
